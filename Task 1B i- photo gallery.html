@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Photo Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #9aee98; /* Dark background for better contrast */
+            color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        h2 {
+            color: #3708b8; /* Soft blue for headings */
+            margin-bottom: 20px;
+        }
+        .gallery-image img {
+            height: 200px; /* Fixed height */
+            width: 100%; /* Width relative to parent */
+            object-fit: cover; /* Ensures the image covers the area, no stretching */
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out; /* Smooth transformation on hover */
+        }
+        .gallery-image:hover img {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        }
+        .gallery-container {
+            padding: 4px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .gallery-container:hover {
+            background-color: #e9ecef; /* Light gray background on hover */
+        }
+        .modal-img {
+            width: 100%; /* Full width within modal */
+        }
+        .modal-content {
+            background-color: #6ab1f8; /* Darker modal background */
+        }
+        .modal-title, .btn-close {
+            color: #f8f9fa; /* Light text for visibility */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">College Memories Gallery</h2>
+        <div class="row g-3">
+            <!-- Images will be listed here -->
+        </div>
+    </div>
+
+    <!-- Modal for full-size image view -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Full Size Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="" id="modalImage" class="modal-img" alt="Full size">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gallery = document.querySelector('.row');
+        const images = [
+            // URLs of images from Unsplash or other sources
+            'https://images.unsplash.com/photo-1686624386665-4cd01b96d0f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODd8fGluZGlhbiUyMGNvbGxlZ2V8ZW58MHx8MHx8fDA%3D',
+            'https://images.unsplash.com/photo-1688789029020-6c5b8b22305a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1527384025924-f30fc2ac98e3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1625533617580-3977f2651fc0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1462536943532-57a629f6cc60?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1498&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1677594334053-afe4b41aa0a3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'https://images.unsplash.com/photo-1677128348786-266c15fa8234?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Zmxhc2htb2J8ZW58MHx8MHx8fDA%3D',
+            'https://images.unsplash.com/photo-1676027274842-6195f8cdace7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGN1bHR1cmFsJTIwZXZlbnRzfGVufDB8fDB8fHww',
+            'https://images.unsplash.com/photo-1643508522322-5bbc32b80dd0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGN1bHR1cmFsJTIwZXZlbnRzfGVufDB8fDB8fHww',
+            'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aW5kaWFuJTIwY29sbGVnZXxlbnwwfHwwfHx8MA%3D%3D',
+            'https://images.unsplash.com/photo-1591980607162-923fa31e8240?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGluZGlhbiUyMGNvbGxlZ2V8ZW58MHx8MHx8fDA%3D',
+            'https://images.unsplash.com/photo-1504817343863-5092a923803e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGluZGlhbiUyMGNvbGxlZ2V8ZW58MHx8MHx8fDA%3D',
+            'https://images.unsplash.com/photo-1592085550638-e6bc180a731e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGluZGlhbiUyMGNvbGxlZ2V8ZW58MHx8MHx8fDA%3D',
+            'https://images.unsplash.com/photo-1506377872008-6645d9d29ef7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fGluZGlhbiUyMGNvbGxlZ2V8ZW58MHx8MHx8fDA%3D',
+            'https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGluZGlhbiUyMGNvbGxlZ2V8ZW58MHx8MHx8fDA%3D',
+            'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzB8fGluZGlhbiUyMGNvbGxlZ2V8ZW58MHx8MHx8fDA%3D'
+            // Add more specific image URLs
+        ];
+        images.forEach((src, index) => {
+            const col = document.createElement('div');
+            col.className = 'col-sm-6 col-md-4 col-lg-3';
+            col.innerHTML = `
+                <div class="gallery-container">
+                    <div class="gallery-image">
+                        <img src="${src}?auto=compress&cs=tinysrgb&dpr=2&h=200&w=300" alt="College Image ${index + 1}" class="img-fluid" onclick="openModal('${src}')">
+                    </div>
+                </div>
+            `;
+            gallery.appendChild(col);
+        });
+
+        function openModal(src) {
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = src; // Use full resolution for viewing
+            new bootstrap.Modal(document.getElementById('imageModal')).show();
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

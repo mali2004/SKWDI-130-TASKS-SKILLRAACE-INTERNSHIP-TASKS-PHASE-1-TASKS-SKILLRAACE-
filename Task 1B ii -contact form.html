@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Contact Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .form-container {
+            background: rgb(149, 247, 140);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .form-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .form-header {
+            margin-bottom: 20px;
+            color: #0056b3;
+            text-align: center;
+        }
+
+        /* Custom CSS for form validation feedback */
+        .was-validated .form-control:invalid {
+            border-color: #dc3545;
+        }
+
+        .was-validated .form-control:invalid:focus {
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+
+        .was-validated .form-control:valid {
+            border-color: #198754;
+        }
+
+        .was-validated .form-control:valid:focus {
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+        }
+
+        /* Additional styles for other fields */
+        input[type="tel"], input[type="date"], select.form-control {
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="tel"]:focus, input[type="date"]:focus, select.form-control:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 86, 179, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 form-container">
+                <h2 class="form-header">Contact Us</h2>
+                <form class="needs-validation" novalidate>
+                    <!-- Full Name -->
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" placeholder="John Doe" 
+                               required pattern="[A-Za-z\s]+" title="Full name should only contain letters and spaces.">
+                        <div class="invalid-feedback">
+                            Please enter a valid full name (letters and spaces only).
+                        </div>
+                    </div>
+                    <!-- Gender -->
+                    <div class="mb-3">
+                        <label>Gender</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Male" required>
+                            <label class="form-check-label" for="genderMale">
+                                Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Female">
+                            <label class="form-check-label" for="genderFemale">
+                                Female
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="genderOther" value="Other">
+                            <label class="form-check-label" for="genderOther">
+                                Other
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Email Address -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="example@domain.com" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+                    <!-- Phone Number -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="8912345670" required 
+                               maxlength="10" pattern="\d{10}" title="Phone number should be 10 digits without any spaces or symbols">
+                        <div class="invalid-feedback">
+                            Please enter a valid phone number.
+                        </div>
+                    </div>
+                    
+                    <!-- Date of Birth -->
+                    <div class="mb-3">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" required>
+                        <div class="invalid-feedback">
+                            Please select a valid date of birth (not in the future).
+                        </div>
+                    </div>
+                    
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var today = new Date().toISOString().split('T')[0]; // Gets today's date in YYYY-MM-DD format
+                            document.getElementById("dob").setAttribute('max', today); // Sets the max attribute to today's date
+                        });
+                    </script>
+                    
+                    <!-- Department Selection -->
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Department</label>
+                        <select class="form-control" id="department" required>
+                            <option value="">Select Department</option>
+                            <option value="CSE">Computer Science Engineering</option>
+        <option value="ECE">Electronics & Communication Engineering</option>
+        <option value="EEE">Electrical & Electronics Engineering</option>
+        <option value="Civil">Civil Engineering</option>
+        <option value="Mech">Mechanical Engineering</option>
+        <option value="MME">Metallurgical Engineering</option>
+        <option value="Aerospace Engineering">Aerospace Engineering</option>
+        <option value="Biomedical Engineering">Biomedical Engineering</option>
+        <option value="Chemical Engineering">Chemical Engineering</option>
+        <option value="Materials Science Engineering">Materials Science Engineering</option>
+        <option value="Environmental Engineering">Environmental Engineering</option>
+        <option value="Industrial Engineering">Industrial Engineering</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a department.
+                        </div>
+                    </div>
+                    <!-- Message -->
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Your message here..." required></textarea>
+                        <div class="invalid-feedback">
+                            Please enter a message with at least 10 words.
+                        </div>
+                    </div>
+                    
+                    <script>
+                        document.querySelector('form').addEventListener('submit', function(event) {
+                            var message = document.getElementById("message").value;
+                            var words = message.trim().split(/\s+/);
+                            if (words.length < 10) {
+                                // Prevent form submission
+                                event.preventDefault();
+                                // Add Bootstrap is-invalid class to display the feedback
+                                document.getElementById("message").classList.add('is-invalid');
+                                // Alert or notify the user
+                                alert("Please ensure the message contains at least 10 words.");
+                            } else {
+                                // Remove invalid class if it meets the requirement
+                                document.getElementById("message").classList.remove('is-invalid');
+                            }
+                        });
+                    </script>
+                    
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript for enabling form validation
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+     <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var isValid = true;
+            var message = document.getElementById("message").value;
+            var words = message.trim().split(/\s+/);
+
+            // Check if message has at least 10 words
+            if (words.length < 10) {
+                document.getElementById("message").classList.add('is-invalid');
+                isValid = false;
+            } else {
+                document.getElementById("message").classList.remove('is-invalid');
+            }
+
+            // Check if the rest of the form is valid
+            if (!this.checkValidity()) {
+                this.classList.add('was-validated');
+                isValid = false;
+            }
+
+            // Only show success message and refresh if the entire form is valid
+            if (isValid) {
+                alert("Form submitted successfully!");
+                setTimeout(function() {
+                    location.reload(); // Refresh the page
+                }, 1000); // Refresh after 1 second
+            }
+        });
+    </script>

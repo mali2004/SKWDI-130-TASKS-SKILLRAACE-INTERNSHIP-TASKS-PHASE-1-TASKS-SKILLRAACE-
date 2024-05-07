@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Pricing Plans</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS styles */
+        body {
+            background-image: url('https://images.unsplash.com/20/cambridge.JPG?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dW5pdmVyc2l0eXxlbnwwfHwwfHx8MA%3D%3D'); /* Example college image */
+            background-size: cover; /* Cover the entire area */
+            background-position: center; /* Center the background image */
+            background-attachment: fixed; /* Fixed background */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.7); /* Lighter semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        }
+
+        .pricing-table {
+            margin-top: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .table {
+            border-collapse: separate;
+            width: 100%; /* Full width table */
+            border: 2px solid #ffa500; /* Orange border */
+        }
+
+        .table th, .table td {
+            border: 1px solid #32cd32; /* Lime Green borders */
+            padding: 12px; /* Increased padding */
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent cells */
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(33, 10, 243, 0.7); /* More transparent light yellow for hover */
+        }
+
+        .table thead th {
+            background-color: rgba(255, 99, 71, 0.7); /* Semi-transparent Tomato red header */
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6347; /* Header color to match table header */
+            padding: 20px 0; /* Spacing above and below the title */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>College Pricing Plans</h1>
+    <div class="pricing-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Plan</th>
+                    <th>Price</th>
+                    <th>Benefits</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Basic</td><td>$10/month</td><td>Access to basic courses</td></tr>
+                <tr><td>Standard</td><td>$15/month</td><td>Access to standard courses + Workshops</td></tr>
+                <tr><td>Premium</td><td>$25/month</td><td>All courses, workshops, and seminars</td></tr>
+                <tr><td>Economy</td><td>$8/month</td><td>Video archives only</td></tr>
+                <tr><td>Pro</td><td>$30/month</td><td>Pro courses, early event registration</td></tr>
+                <tr><td>Elite</td><td>$50/month</td><td>One-on-one mentoring, all courses</td></tr>
+                <tr><td>Group</td><td>$100/month</td><td>Up to 5 accounts, access all resources</td></tr>
+                <tr><td>Corporate</td><td>$200/month</td><td>Up to 20 accounts, tailored workshops</td></tr>
+                <tr><td>Starter Pack</td><td>$5/month</td><td>Introductory resources, limited access</td></tr>
+                <tr><td>Graduate</td><td>$35/month</td><td>Alumni networking, ongoing resources</td></tr>
+                <tr><td>Intern</td><td>$12/month</td><td>Intern level courses, basic workshops</td></tr>
+                <tr><td>Advanced</td><td>$40/month</td><td>Advanced topics, special events</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
